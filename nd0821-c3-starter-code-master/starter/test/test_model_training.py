@@ -59,7 +59,7 @@ class model_training_test(unittest.TestCase):
         model_out = "./test_cache/test_model.pkl"
         label = "animal"
         
-        fit_model(self.train, model_out, cat_features=cat_features, label=label)
+        fit_model(model_out, train=self.train, cat_features=cat_features, label=label)
         
         ## check to see that the model was created
         self.assertTrue(os.path.exists(model_out))

@@ -10,8 +10,8 @@ import os
 import pandas as pd
 import joblib
 import sys
-sys.path.append("./ml")
-from data import process_data
+sys.path.append(".")
+from ml.data import process_data
 from train_model import split_data
 from sklearn.metrics import (accuracy_score, 
                              f1_score, 
@@ -31,18 +31,18 @@ class EvaluateDataSlices:
         self.cat_features = [
             "workclass",
             "education",
-            "marital-status",
+            "marital_status",
             "occupation",
             "relationship",
             "race",
             "sex",
-            "native-country"]
+            "native_country"]
         
         self.label = "salary"
         
         # run methods
         self.get_data()
-        self.get_data()
+        self.get_model()
         self.evaluate_slices()
         self.save_slice_metrics()
         
@@ -54,7 +54,15 @@ class EvaluateDataSlices:
     def get_model(self):
         
         self.model = joblib.load(
-            os.path.join(self.par_dir, "model/some_model"))
+            os.path.join(self.par_dir, 
+                         "model/salary_predictor_model.joblib"))
+        self.encoder = joblib.load(
+            os.path.join(self.par_dir, 
+                         "model/salary_predictor_encoder.joblib"))
+        self.lb = joblib.load(
+            os.path.join(self.par_dir, 
+                         "model/salary_predictor_lb.joblib"))
+        
         
     def produce_metrics(self, pred, y):
         
@@ -79,7 +87,8 @@ class EvaluateDataSlices:
                 self.X_test, self.y_test, encoder, lb = process_data(
                     split_df, 
                     categorical_features=self.cat_features, 
-                    label=self.label, training=True)
+                    label=self.label, training=False, 
+                    encoder=self.encoder, lb=self.lb)
                 
                 scored_pred = self.model.predict(self.X_test)
                 
