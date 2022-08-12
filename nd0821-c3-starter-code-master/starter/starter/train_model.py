@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import sys
 sys.path.append(".")
+sys.path.append("./starter")
 from ml.data import process_data
 from ml.model import train_model, inference, compute_model_metrics
 import joblib
@@ -50,23 +51,20 @@ def fit_model(model_out, train=None, data_dir=None, cat_features=None, label="sa
     joblib.dump(model, model_out+"salary_predictor_model.joblib")
     joblib.dump(encoder, model_out+"salary_predictor_encoder.joblib")
     joblib.dump(lb, model_out+"salary_predictor_lb.joblib")
+
     
-#     # test it
-#     X_test, y_test, _, _ = process_data(
-#         test, categorical_features=cat_features, label=label, training=False, encoder=encoder, lb=lb)
+def test_model(model_dir, test, cat_features=None, label="salary"):
+    
+    # load it
+    model = joblib.load(model_dir+"salary_predictor_model.joblib")
+    encoder = joblib.load(model_dir+"salary_predictor_encoder.joblib")
+    lb = joblib.load(model_dir+"salary_predictor_lb.joblib")    
+    
+    # test it
+    X_test, y_test, _, _ = process_data(
+        test, categorical_features=cat_features, label=label, training=False, encoder=encoder, lb=lb)
 
-#     preds = inference(model, X_test)
-#     precision, recall, fbeta = compute_model_metrics(y_test, preds)
-#     print(f"precision is {precision}, recall is {recall}, fbeta is {fbeta}")
+    preds = inference(model, X_test)
+    precision, recall, fbeta = compute_model_metrics(y_test, preds)
+    return precision, recall, fbeta
 
-# model_out = r"C:\Users\rbarker\OneDrive - Imdex Limited\Documents\Python Scripts\udacity_training\Deploying-a-Machine-Learning-Model-on-Heroku-with-FastAPI\nd0821-c3-starter-code-master\starter\model/"
-# data_dir = r"C:\Users\rbarker\OneDrive - Imdex Limited\Documents\Python Scripts\udacity_training\Deploying-a-Machine-Learning-Model-on-Heroku-with-FastAPI\nd0821-c3-starter-code-master\starter\data/clean_census.csv"
-
-# fit_model(model_out, data_dir=data_dir)
-
-
-# loaded_model = joblib.load(open(model_out, 'rb'))
-
-# from ml.model import inference, compute_model_metrics
-
-# preds = inference()
