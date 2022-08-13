@@ -7,7 +7,7 @@ Put the code for your API here.
 
 To run: uvicorn fastapi_deploy:app --reload
 
-Available at: http://127.0.0.1:8000
+Available at: http://127.0.0.1:8000/docs
 """
 
 import os
@@ -34,7 +34,7 @@ class FeatureData(BaseModel):
     age: int #= Field(..., example=40)
     workclass: Literal['State_gov', 'Self_emp_not_inc', 'Private', 'Federal_gov',
         'Local_gov', '?', 'Self_emp_inc', 'Without_pay', 'Never_worked']
-    fnlwgt: int
+    fnlgt: int
     education: Literal['Bachelors', 'HS_grad', '11th', 'Masters', '9th', 'Some_college',
         'Assoc_acdm', 'Assoc_voc', '7th_8th', 'Doctorate', 'Prof_school',
         '5th_6th', '10th', '1st_4th', 'Preschool', '12th']
@@ -79,14 +79,15 @@ app = FastAPI()
 def welcome():
     return {"message": "Bienvenidos!"}
 
+
 @app.post('/inference')
 async def predict_income(inputdata: FeatureData):
     
-    model_dir = 'model'
+    model_dir = 'model/'
     
     # encoded_data = jsonable_encoder(inputdata)
     
-    output = predict_model_api(inputdata, model_dir, cat_features)
+    output = predict_model_api(inputdata, model_dir)
 
     return {"income": output}
 

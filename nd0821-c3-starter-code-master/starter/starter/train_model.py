@@ -8,7 +8,7 @@ sys.path.append("./starter")
 from ml.data import process_data
 from ml.model import train_model, inference, compute_model_metrics
 import joblib
-
+import sklearn
 # Add the necessary imports for the starter code.
 
 def split_data(data_dir, run=True):
@@ -46,7 +46,7 @@ def fit_model(model_out, train=None, data_dir=None, cat_features=None, label="sa
 
     # Train and save a model.
     model = train_model(X_train, y_train)
-    
+    print(f"sk version is {sklearn.__version__}")
     # Dump it
     joblib.dump(model, model_out+"salary_predictor_model.joblib")
     joblib.dump(encoder, model_out+"salary_predictor_encoder.joblib")

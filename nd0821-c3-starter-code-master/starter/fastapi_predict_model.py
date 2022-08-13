@@ -31,7 +31,7 @@ def predict_model_api(data, model_out, cat_features=None):
             "native_country"]
     
     # get the data and convert to array
-    target_data = np.array([[data.age,data.workclass,data.fnlwgt,data.education,
+    target_data = np.array([[data.age,data.workclass,data.fnlgt,data.education,
                              data.education_num, data.marital_status, data.occupation,
                              data.relationship, data.race, data.sex, 
                              data.capital_gain, data.capital_loss, 
@@ -39,7 +39,7 @@ def predict_model_api(data, model_out, cat_features=None):
     
     # need df for process_data
     fixed_data = pd.DataFrame(target_data, columns=[
-        "age", "workclass", "fnlwgt", "education", "education_num", "marital_status", 
+        "age", "workclass", "fnlgt", "education", "education_num", "marital_status", 
         "occupation", "relationship", "race", "sex", "capital_gain",
         "capital_loss", "hours_per_week", "native_country"])
     

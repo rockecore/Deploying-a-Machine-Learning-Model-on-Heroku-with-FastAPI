@@ -19,7 +19,7 @@ cat_features = [
 if __name__ == '__main__':
     
     data_dir = "data/clean_census.csv"
-    model_out = "model"
+    model_out = "model/"
     
     train, test = split_data(data_dir)
     fit_model(model_out, train=train)
