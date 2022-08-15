@@ -4,6 +4,7 @@ Created on Mon Aug 15 12:38:09 2022
 @author: rbarker
 """
 
+
 import requests
 
 inputdata = {'age': 28,
@@ -22,7 +23,7 @@ inputdata = {'age': 28,
              'native_country': 'Cuba'}
 
 response = requests.post(
-    url='https://census-prediction-app.herokuapp.com/inference',
+    url='https://udacity-fastapi-deloy.herokuapp.com/inference',
     json=inputdata)
 
 print(response.status_code)
