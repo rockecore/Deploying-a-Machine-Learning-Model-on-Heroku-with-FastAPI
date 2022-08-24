@@ -23,7 +23,7 @@ inputdata = {'age': 28,
              'native_country': 'Cuba'}
 
 response = requests.post(
-    url='https://udacity-fastapi-deloy.herokuapp.com/inference',
+    url='https://udacity-fastapi-deploy-v2.herokuapp.com/inference',
     json=inputdata)
 
 print(response.status_code)
